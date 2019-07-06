@@ -1,4 +1,4 @@
-package com.tambapps.nlp.scda.dictionnary;
+package com.tambapps.nlp.scda.dictionary;
 
 import java.util.regex.Pattern;
 

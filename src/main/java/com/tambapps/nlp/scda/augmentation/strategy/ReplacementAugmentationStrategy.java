@@ -1,6 +1,6 @@
 package com.tambapps.nlp.scda.augmentation.strategy;
 
-import com.tambapps.nlp.scda.dictionnary.StringUtils;
+import com.tambapps.nlp.scda.dictionary.StringUtils;
 
 import java.util.Random;
 

@@ -1,7 +1,7 @@
 package com.tambapps.nlp.scda.augmentation.strategy;
 
 
-import com.tambapps.nlp.scda.dictionnary.UnigramDistribution;
+import com.tambapps.nlp.scda.dictionary.UnigramDistribution;
 
 import java.util.List;
 import java.util.Random;

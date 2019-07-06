@@ -8,7 +8,7 @@ import com.tambapps.nlp.scda.augmentation.strategy.PlaceholderAugmentationStrate
 import com.tambapps.nlp.scda.augmentation.strategy.SmoothAugmentationStrategy;
 import com.tambapps.nlp.scda.augmentation.strategy.SwapAugmentationStrategy;
 import com.tambapps.nlp.scda.dataset.Dataset;
-import com.tambapps.nlp.scda.dictionnary.UnigramDistribution;
+import com.tambapps.nlp.scda.dictionary.UnigramDistribution;
 import com.tambapps.nlp.scda.io.IOUtils;
 
 import com.beust.jcommander.JCommander;
