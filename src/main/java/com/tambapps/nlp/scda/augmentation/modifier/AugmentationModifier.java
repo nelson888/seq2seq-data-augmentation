@@ -6,11 +6,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.List;
 
 public class AugmentationModifier {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(AugmentationModifier.class);
+  private static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat();
 
   private final List<AugmentationStrategy> augmentationStrategies;
 
@@ -28,8 +30,8 @@ public class AugmentationModifier {
     long totalAddedEntries = 0;
     for (AugmentationStrategy strategy : augmentationStrategies) {
       totalAddedEntries += strategy.getAddedEntries();
-      LOGGER.info("{} entries was added with the strategy {}", strategy.getAddedEntries(), strategy.getName());
+      LOGGER.info("{} entries was added with the strategy {}", DECIMAL_FORMAT.format(strategy.getAddedEntries()), strategy.getName());
     }
-    LOGGER.info("{} entries was added in total", totalAddedEntries);
+    LOGGER.info("{} entries was added in total", DECIMAL_FORMAT.format(totalAddedEntries));
   }
 }
