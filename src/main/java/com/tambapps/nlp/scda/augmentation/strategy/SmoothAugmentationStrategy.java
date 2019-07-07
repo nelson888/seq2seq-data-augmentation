@@ -1,6 +1,7 @@
 package com.tambapps.nlp.scda.augmentation.strategy;
 
 
+import com.tambapps.nlp.scda.dictionary.StringUtils;
 import com.tambapps.nlp.scda.dictionary.UnigramDistribution;
 
 import java.util.List;
@@ -21,6 +22,9 @@ public class SmoothAugmentationStrategy extends ReplacementAugmentationStrategy 
 
   @Override
   String replaceWord(String word) {
+    if (StringUtils.isPunctuation(word)) {
+      return word;
+    }
     double prob = unigramDistribution.getProbability(word);
     List<String> replacements = unigramDistribution.getWordsWithProb(prob);
     if (replacements.size() == 1) { // meaning that the input word is the only one for this probability
