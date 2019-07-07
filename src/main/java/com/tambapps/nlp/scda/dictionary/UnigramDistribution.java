@@ -1,5 +1,8 @@
 package com.tambapps.nlp.scda.dictionary;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -10,6 +13,9 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class UnigramDistribution {
+
+  public static final Logger LOGGER = LoggerFactory.getLogger(UnigramDistribution.class);
+
   private final Map<String, Double> distribution;
   private final Map<Double, List<String>> reversedDistribution;
   private final List<Double> probabilities;
@@ -21,7 +27,13 @@ public class UnigramDistribution {
   }
 
   public double getProbability(String word) {
-    return distribution.get(word);
+    Double probability = distribution.get(StringUtils.trimPunctuation(word));
+    if (probability == null) {
+      LOGGER.error("There isn't a probability for word {}. Exiting program", word);
+      System.exit(1);
+      return 0d;
+    }
+    return probability;
   }
 
   public List<String> getWordsWithProb(double probability) {

@@ -37,7 +37,9 @@ public class Main {
     final UnigramDistribution unigramDistribution;
     try {
       jCommander.parse(args);
+      LOGGER.info("Loading unigram distribution...");
       unigramDistribution = getUnigramDistribution(arguments.getDictionaryFile(), arguments.getDistributionFile());
+      LOGGER.info("Unigram distribution was loaded successfully");
     } catch (ParameterException e) {
       LOGGER.error("Couldn't parse arguments: {}", e.getMessage());
       jCommander.usage();
@@ -48,15 +50,19 @@ public class Main {
     File sourceFile = arguments.getSourceFile();
     File targetFile = arguments.getTargetFile();
     File outputSourceFile = new File(sourceFile.getParent(), sourceFile.getName() + OUTPUT_FILE_SUFFIX);
-    File outputTargetFile = new File(targetFile.getParent(), sourceFile.getName() + OUTPUT_FILE_SUFFIX);
+    File outputTargetFile = new File(targetFile.getParent(), targetFile.getName() + OUTPUT_FILE_SUFFIX);
 
+    LOGGER.info("Starting processing dataset");
     try (BufferedReader sourceReader = IOUtils.newReader(arguments.getSourceFile());
          BufferedReader targetReader = IOUtils.newReader(arguments.getTargetFile());
          BufferedWriter sourceWriter = IOUtils.newWriter(outputSourceFile);
          BufferedWriter targetWriter = IOUtils.newWriter(outputTargetFile)) {
+      LOGGER.info("Writing output source file in {}", outputSourceFile.getPath());
+      LOGGER.info("Writing output target file in {}", outputTargetFile.getPath());
       Dataset dataset = new Dataset(sourceReader, targetReader, sourceWriter, targetWriter);
       modifier.modifyDataset(dataset);
     }
+    LOGGER.info("Finished augmenting data");
   }
 
   private static AugmentationModifier getAugmentationModifier(Arguments arguments,

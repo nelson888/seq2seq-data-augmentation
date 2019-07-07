@@ -8,7 +8,7 @@ public abstract class AbstractAugmentationStrategy implements AugmentationStrate
 
   private long addedEntries = 0;
   @Override
-  public void apply(Dataset.Entry entry) throws IOException {
+  public final void apply(Dataset.Entry entry) throws IOException {
     String modifiedSource = modifySource(entry.getSourceText());
     if (modifiedSource.equals(entry.getSourceText())) {
       return;
@@ -19,10 +19,12 @@ public abstract class AbstractAugmentationStrategy implements AugmentationStrate
 
   abstract String modifySource(String entry);
 
+  @Override
   public long getAddedEntries() {
     return addedEntries;
   }
 
+  @Override
   public String getName() {
     String name = getClass().getSimpleName();
     return name.substring(0, name.indexOf('A', 1));

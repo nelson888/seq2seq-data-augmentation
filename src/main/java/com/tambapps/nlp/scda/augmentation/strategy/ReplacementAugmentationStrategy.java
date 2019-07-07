@@ -14,9 +14,9 @@ public abstract class ReplacementAugmentationStrategy extends AbstractAugmentati
   }
 
   @Override
-  String modifySource(String entry) {
+  final String modifySource(String entry) {
     StringBuilder builder = new StringBuilder();
-    for (String word : entry.split(" ")) {
+    for (String word : entry.split("\\s+")) {
       builder.append(!StringUtils.isPunctuation(word) && random.nextDouble() <= gamma ? replaceWord(word) : word)
         .append(" ");
     }

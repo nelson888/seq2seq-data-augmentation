@@ -8,4 +8,8 @@ public interface AugmentationStrategy {
 
   void apply(Dataset.Entry entry) throws IOException;
 
+  long getAddedEntries();
+
+  String getName();
+
 }
