@@ -1,5 +1,6 @@
 package com.tambapps.nlp.scda.dictionary;
 
+import com.tambapps.nlp.scda.exception.DistributionException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,9 +30,7 @@ public class UnigramDistribution {
   public double getProbability(String word) {
     Double probability = distribution.get(StringUtils.trimPunctuation(word));
     if (probability == null) {
-      LOGGER.error("There isn't a probability for word {}. Exiting program", word);
-      System.exit(1);
-      return 0d;
+      throw new DistributionException(String.format("There isn't a probability for word %s. Exiting program", word));
     }
     return probability;
   }

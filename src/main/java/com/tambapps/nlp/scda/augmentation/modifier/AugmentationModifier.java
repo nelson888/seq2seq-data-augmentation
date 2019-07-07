@@ -2,6 +2,7 @@ package com.tambapps.nlp.scda.augmentation.modifier;
 
 import com.tambapps.nlp.scda.augmentation.strategy.AugmentationStrategy;
 import com.tambapps.nlp.scda.dataset.Dataset;
+import com.tambapps.nlp.scda.exception.DistributionException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,7 +25,13 @@ public class AugmentationModifier {
     for (Dataset.Entry entry : dataset) {
       entry.write(); // write the entry itself once
       for (AugmentationStrategy strategy : augmentationStrategies) {
-        strategy.apply(entry);
+        try {
+          strategy.apply(entry);
+        } catch (DistributionException e) {
+          LOGGER.error("Error while performing Smooth: {}", e.getMessage());
+          LOGGER.error("Exiting program");
+          return;
+        }
       }
     }
     long totalAddedEntries = 0;
