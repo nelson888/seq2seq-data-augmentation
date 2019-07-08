@@ -22,8 +22,10 @@ public class AugmentationModifier {
   }
 
   public void modifyDataset(Dataset dataset) throws IOException {
+    long totalSize = 0;
     for (Dataset.Entry entry : dataset) {
       entry.write(); // write the entry itself once
+      totalSize++;
       for (AugmentationStrategy strategy : augmentationStrategies) {
         try {
           strategy.apply(entry);
@@ -39,6 +41,8 @@ public class AugmentationModifier {
       totalAddedEntries += strategy.getAddedEntries();
       LOGGER.info("{} entries was added with the strategy {}", DECIMAL_FORMAT.format(strategy.getAddedEntries()), strategy.getName());
     }
+    totalSize += totalAddedEntries;
     LOGGER.info("{} entries was added in total", DECIMAL_FORMAT.format(totalAddedEntries));
+    LOGGER.info("Finished dataset augmentation. New size: {}", totalSize);
   }
 }

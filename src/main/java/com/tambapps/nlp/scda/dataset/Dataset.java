@@ -1,5 +1,6 @@
 package com.tambapps.nlp.scda.dataset;
 
+import com.tambapps.nlp.scda.exception.DatasetException;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -22,12 +23,13 @@ public class Dataset implements Iterator<Dataset.Entry>, Iterable<Dataset.Entry>
   private String targetLine;
 
   public Dataset(BufferedReader sourceReader, BufferedReader targetReader,
-                 BufferedWriter sourceWriter, BufferedWriter targetWriter) {
+                 BufferedWriter sourceWriter, BufferedWriter targetWriter) throws IOException {
     this.sourceReader = sourceReader;
     this.targetReader = targetReader;
     this.sourceWriter = sourceWriter;
     this.targetWriter = targetWriter;
-    updateLines();
+    sourceLine = sourceReader.readLine();
+    targetLine = targetReader.readLine();
   }
 
   public Iterator<Entry> iterator() {
@@ -38,15 +40,6 @@ public class Dataset implements Iterator<Dataset.Entry>, Iterable<Dataset.Entry>
     return sourceLine != null && targetLine != null;
   }
 
-  private void updateLines() {
-    try {
-      sourceLine = sourceReader.readLine();
-      targetLine = targetReader.readLine();
-    } catch (IOException e) {
-      throw new RuntimeException("An IO Exception occurred while reading dataset", e);
-    }
-  }
-
   private void write(String sourceText, String targetText) throws IOException {
     sourceWriter.write(sourceText + "\n");
     targetWriter.write(targetText + "\n");
@@ -54,7 +47,12 @@ public class Dataset implements Iterator<Dataset.Entry>, Iterable<Dataset.Entry>
 
   public Entry next() {
     Entry entry = new Entry(sourceLine, targetLine);
-    updateLines();
+    try {
+      sourceLine = sourceReader.readLine();
+      targetLine = targetReader.readLine();
+    } catch (IOException e) {
+      throw new DatasetException("An IO Exception occurred while reading dataset", e);
+    }
     return entry;
   }
 

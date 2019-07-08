@@ -62,7 +62,6 @@ public class Main {
       Dataset dataset = new Dataset(sourceReader, targetReader, sourceWriter, targetWriter);
       modifier.modifyDataset(dataset);
     }
-    LOGGER.info("Finished augmenting data");
   }
 
   private static AugmentationModifier getAugmentationModifier(Arguments arguments,
