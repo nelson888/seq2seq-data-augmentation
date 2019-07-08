@@ -10,6 +10,9 @@ import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.List;
 
+/**
+ * Class used to iterate over a {@link Dataset} and increase it size with the SCDA method
+ */
 public class AugmentationModifier {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(AugmentationModifier.class);
@@ -21,7 +24,13 @@ public class AugmentationModifier {
     this.augmentationStrategies = augmentationStrategies;
   }
 
-  public void modifyDataset(Dataset dataset) throws IOException {
+
+  /**
+   * Augment the dataset with the SCDA method
+   * @param dataset the dataset to augment
+   * @throws IOException in case of IO error while reading/writing
+   */
+  public void augmentDataset(Dataset dataset) throws IOException {
     long totalSize = 0;
     for (Dataset.Entry entry : dataset) {
       entry.write(); // write the entry itself once

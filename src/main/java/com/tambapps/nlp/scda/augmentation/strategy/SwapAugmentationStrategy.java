@@ -3,7 +3,12 @@ package com.tambapps.nlp.scda.augmentation.strategy;
 import java.util.Arrays;
 import java.util.Random;
 
+/**
+ * Swap randomly words in a window of given size
+ */
 public class SwapAugmentationStrategy extends AbstractAugmentationStrategy {
+
+  private static final String SPACE = " ";
 
   private final Random random = new Random();
   private final int window;
@@ -21,7 +26,7 @@ public class SwapAugmentationStrategy extends AbstractAugmentationStrategy {
       shuffle(windowWords);
       System.arraycopy(words, i, words, 0, windowWords.length);
     }
-    return String.join(" ", words);
+    return String.join(SPACE, words);
   }
 
   private void shuffle(String[] windowWords) {

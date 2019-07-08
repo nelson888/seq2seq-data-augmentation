@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * Replace words with words from the unigram diagram
+ * Replace words with words with same frequency from the unigram diagram of the dataset
  */
 public class SmoothAugmentationStrategy extends ReplacementAugmentationStrategy {
 

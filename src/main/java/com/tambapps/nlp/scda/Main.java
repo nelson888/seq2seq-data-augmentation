@@ -60,7 +60,7 @@ public class Main {
       LOGGER.info("Writing output source file in {}", outputSourceFile.getPath());
       LOGGER.info("Writing output target file in {}", outputTargetFile.getPath());
       Dataset dataset = new Dataset(sourceReader, targetReader, sourceWriter, targetWriter);
-      modifier.modifyDataset(dataset);
+      modifier.augmentDataset(dataset);
     }
   }
 
