@@ -1,6 +1,6 @@
 package com.tambapps.nlp.scda.augmentation.strategy;
 
-import com.tambapps.nlp.scda.dataset.Dataset;
+import com.tambapps.nlp.scda.dataset.IODataset;
 
 import java.io.IOException;
 
@@ -8,7 +8,7 @@ public abstract class AbstractAugmentationStrategy implements AugmentationStrate
 
   private long addedEntries = 0;
   @Override
-  public final void apply(Dataset.Entry entry) throws IOException {
+  public final void apply(IODataset.Entry entry) throws IOException {
     String modifiedSource = modifySource(entry.getSourceText());
     if (modifiedSource.equals(entry.getSourceText())) {
       return;

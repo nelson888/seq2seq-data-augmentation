@@ -1,7 +1,7 @@
 package com.tambapps.nlp.scda.augmentation.modifier;
 
 import com.tambapps.nlp.scda.augmentation.strategy.AugmentationStrategy;
-import com.tambapps.nlp.scda.dataset.Dataset;
+import com.tambapps.nlp.scda.dataset.IODataset;
 import com.tambapps.nlp.scda.exception.DistributionException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,7 +11,7 @@ import java.text.DecimalFormat;
 import java.util.List;
 
 /**
- * Class used to iterate over a {@link Dataset} and increase it size with the SCDA method
+ * Class used to iterate over a {@link IODataset} and increase it size with the SCDA method
  */
 public class AugmentationModifier {
 
@@ -30,9 +30,9 @@ public class AugmentationModifier {
    * @param dataset the dataset to augment
    * @throws IOException in case of IO error while reading/writing
    */
-  public void augmentDataset(Dataset dataset) throws IOException {
+  public void augmentDataset(IODataset dataset) throws IOException {
     long totalSize = 0;
-    for (Dataset.Entry entry : dataset) {
+    for (IODataset.Entry entry : dataset) {
       entry.write(); // write the entry itself once
       totalSize++;
       for (AugmentationStrategy strategy : augmentationStrategies) {
@@ -48,7 +48,7 @@ public class AugmentationModifier {
     long totalAddedEntries = 0;
     for (AugmentationStrategy strategy : augmentationStrategies) {
       totalAddedEntries += strategy.getAddedEntries();
-      LOGGER.info("{} entries was added with the strategy {}", DECIMAL_FORMAT.format(strategy.getAddedEntries()), strategy.getName());
+      LOGGER.info("{} entries was added with the {} strategy", DECIMAL_FORMAT.format(strategy.getAddedEntries()), strategy.getName());
     }
     totalSize += totalAddedEntries;
     LOGGER.info("{} entries was added in total", DECIMAL_FORMAT.format(totalAddedEntries));
