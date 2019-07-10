@@ -21,10 +21,9 @@ public class SwapAugmentationStrategy extends AbstractAugmentationStrategy {
   String modifySource(String entry) {
     String[] words = entry.split("\\s+");
     for (int i = 0; i + window - 1 < words.length; i++) {
-      String[] windowWords = Arrays.copyOfRange(words, i, i + window - 1);
-      assert windowWords.length == window;
+      String[] windowWords = Arrays.copyOfRange(words, i, i + window);
       shuffle(windowWords);
-      System.arraycopy(words, i, words, 0, windowWords.length);
+      System.arraycopy(words, i, windowWords, 0, windowWords.length);
     }
     return String.join(SPACE, words);
   }

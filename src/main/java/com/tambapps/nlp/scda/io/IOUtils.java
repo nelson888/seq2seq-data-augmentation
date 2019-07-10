@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
 
 public final class IOUtils {
   private IOUtils() {}
@@ -17,4 +18,9 @@ public final class IOUtils {
   public static BufferedWriter newWriter(File file) throws IOException {
     return new BufferedWriter(new FileWriter(file));
   }
+
+  public static BufferedReader newReader(Class thisClass, String resourcePath) {
+    return new BufferedReader(new InputStreamReader(thisClass.getResourceAsStream(resourcePath)));
+  }
+
 }
