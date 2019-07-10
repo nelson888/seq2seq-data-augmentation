@@ -32,4 +32,7 @@ public class Arguments {
   @Parameter(names = {"-w", "--window-size"}, description = "k, the window size to swap words")
   private int k = 3;
 
+  @Parameter(names = {"-d", "--duplication" }, description = "The number of duplications to create for the original entry")
+  private int duplications = 4;
+
 }

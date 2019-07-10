@@ -17,13 +17,14 @@ public class AugmentationModifier {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(AugmentationModifier.class);
   private static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat();
+  private int originalDuplications;
 
   private final List<AugmentationStrategy> augmentationStrategies;
 
-  public AugmentationModifier(List<AugmentationStrategy> augmentationStrategies) {
+  public AugmentationModifier(List<AugmentationStrategy> augmentationStrategies, int originalDuplications) {
     this.augmentationStrategies = augmentationStrategies;
+    this.originalDuplications = originalDuplications;
   }
-
 
   /**
    * Augment the dataset with the SCDA method
@@ -33,7 +34,9 @@ public class AugmentationModifier {
   public void augmentDataset(IODataset dataset) throws IOException {
     long totalSize = 0;
     for (IODataset.Entry entry : dataset) {
-      entry.write(); // write the entry itself once
+      for (int i = 0; i < originalDuplications; i++) {
+        entry.write();
+      }
       totalSize++;
       for (AugmentationStrategy strategy : augmentationStrategies) {
         try {

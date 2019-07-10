@@ -64,7 +64,7 @@ public class Main {
         new DropoutAugmentationStrategyStrategy(gamma),
         new PlaceholderAugmentationStrategyStrategy(gamma),
         new SmoothAugmentationStrategy(gamma, unigramDistribution));
-    return new AugmentationModifier(strategies);
+    return new AugmentationModifier(strategies, arguments.getDuplications());
   }
 
   private static UnigramDistribution getUnigramDistribution(File dictionaryFile, File distributionFile) throws IOException, ParameterException {
