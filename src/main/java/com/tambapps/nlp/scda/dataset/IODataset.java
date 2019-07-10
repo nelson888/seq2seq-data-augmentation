@@ -1,7 +1,7 @@
 package com.tambapps.nlp.scda.dataset;
 
 import com.tambapps.nlp.scda.exception.DatasetException;
-import com.tambapps.nlp.scda.io.IOUtils;
+import com.tambapps.utils.ioutils.IOUtils;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.slf4j.Logger;

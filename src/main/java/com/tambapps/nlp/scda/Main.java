@@ -9,7 +9,7 @@ import com.tambapps.nlp.scda.augmentation.strategy.SmoothAugmentationStrategy;
 import com.tambapps.nlp.scda.augmentation.strategy.SwapAugmentationStrategy;
 import com.tambapps.nlp.scda.dataset.IODataset;
 import com.tambapps.nlp.scda.dictionary.UnigramDistribution;
-import com.tambapps.nlp.scda.io.IOUtils;
+import com.tambapps.utils.ioutils.IOUtils;
 
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.ParameterException;

@@ -1,6 +1,6 @@
 package com.tambapps.nlp.scda.augmentation.strategy;
 
-import com.tambapps.nlp.scda.io.IOUtils;
+import com.tambapps.utils.ioutils.IOUtils;
 import org.junit.Test;
 
 import java.io.BufferedReader;
