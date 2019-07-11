@@ -12,6 +12,7 @@ import java.io.BufferedWriter;
 import java.io.Closeable;
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
@@ -70,7 +71,7 @@ public class IODataset implements Iterator<IODataset.Entry>, Iterable<IODataset.
 
   @Override
   public void close() throws IOException {
-    for (Closeable c : List.of(sourceReader, targetReader, sourceWriter, targetWriter)) {
+    for (Closeable c : Arrays.asList(sourceReader, targetReader, sourceWriter, targetWriter)) {
       c.close();
     }
   }

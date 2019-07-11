@@ -20,6 +20,7 @@ import org.slf4j.LoggerFactory;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 
 public class Main {
@@ -60,7 +61,7 @@ public class Main {
                                                               UnigramDistribution unigramDistribution) {
     double gamma = arguments.getGamma();
     List<AugmentationStrategy> strategies =
-      List.of(new SwapAugmentationStrategy(arguments.getK()),
+      Arrays.asList(new SwapAugmentationStrategy(arguments.getK()),
         new DropoutAugmentationStrategyStrategy(gamma),
         new PlaceholderAugmentationStrategyStrategy(gamma),
         new SmoothAugmentationStrategy(gamma, unigramDistribution));
