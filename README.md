@@ -32,4 +32,4 @@ more weight.
 ## How to Use
 
 compile the program with maven and launch it with the `--help` options to 
-have more informations
+have more information
