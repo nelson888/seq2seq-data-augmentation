@@ -21,10 +21,10 @@ public class SwapAugmentationStrategyTest {
       lines = reader.lines()
         .collect(Collectors.toList());
     }
-    for (int window = 0; window < 4; window++) {
+    for (int window = 2; window <= 4; window++) {
       final SwapAugmentationStrategy swap = new SwapAugmentationStrategy(window);
       final int k = window;
-      lines.forEach(l -> assertLine(k + 1, l, swap));
+      lines.forEach(l -> assertLine(k, l, swap));
     }
   }
 
