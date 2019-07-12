@@ -26,6 +26,9 @@ public interface AugmentationStrategy {
    * The name of this strategy
    * @return the name of this strategy
    */
-  String getName();
+  default String getName() {
+    String name = getClass().getSimpleName();
+    return name.substring(0, name.indexOf('A', 1));
+  }
 
 }

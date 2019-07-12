@@ -1,5 +1,6 @@
 package com.tambapps.nlp.scda.args;
 
+import com.beust.jcommander.validators.PositiveInteger;
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.Parameters;
 import com.beust.jcommander.converters.FileConverter;
@@ -32,7 +33,10 @@ public class Arguments {
   @Parameter(names = {"-w", "--window-size"}, description = "k, the window size to swap words")
   private int k = 3;
 
-  @Parameter(names = {"-d", "--duplication" }, description = "The number of duplications to create for the original entry")
-  private int duplications = 4;
+  @Parameter(validateWith = PositiveInteger.class, names = {"-d", "--duplication" },
+    description = "The number of duplication of each original entry. The original entry is always wrote once. " +
+      "This option allows to write it more than once (useful to add more weight on original entries of the dataset). " +
+      "In total, there will be d times the number of entries of duplicated entries ")
+  private int duplication = 0;
 
 }

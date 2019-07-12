@@ -17,13 +17,11 @@ public class AugmentationModifier {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(AugmentationModifier.class);
   private static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat();
-  private int originalDuplications;
 
   private final List<AugmentationStrategy> augmentationStrategies;
 
-  public AugmentationModifier(List<AugmentationStrategy> augmentationStrategies, int originalDuplications) {
+  public AugmentationModifier(List<AugmentationStrategy> augmentationStrategies) {
     this.augmentationStrategies = augmentationStrategies;
-    this.originalDuplications = originalDuplications;
   }
 
   /**
@@ -33,15 +31,13 @@ public class AugmentationModifier {
    */
   public void augmentDataset(IODataset dataset) throws IOException, DistributionException {
     long nbEntries = dataset.getNbEntries();
-    final long progressStep = nbEntries /100L;
+    final long progressStep = nbEntries / 100L;
     long step = 0;
     LOGGER.info("{} entries was found", nbEntries);
     LOGGER.info("Starting processing entries");
     long processed = 0;
     for (IODataset.Entry entry : dataset) {
-      for (int i = 0; i < originalDuplications; i++) {
-        entry.write();
-      }
+      entry.write(); // write the original entry once
       for (AugmentationStrategy strategy : augmentationStrategies) {
         strategy.apply(entry);
       }
@@ -62,7 +58,4 @@ public class AugmentationModifier {
       DECIMAL_FORMAT.format(totalAddedEntries));
   }
 
-  private float percentage(long processed, long nbEntries) {
-    return 100L * processed / nbEntries;
-  }
 }

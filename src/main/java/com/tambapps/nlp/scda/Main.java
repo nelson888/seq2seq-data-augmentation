@@ -4,6 +4,7 @@ import com.tambapps.nlp.scda.args.Arguments;
 import com.tambapps.nlp.scda.augmentation.modifier.AugmentationModifier;
 import com.tambapps.nlp.scda.augmentation.strategy.AugmentationStrategy;
 import com.tambapps.nlp.scda.augmentation.strategy.DropoutAugmentationStrategyStrategy;
+import com.tambapps.nlp.scda.augmentation.strategy.DuplicationAugmentationStrategy;
 import com.tambapps.nlp.scda.augmentation.strategy.PlaceholderAugmentationStrategyStrategy;
 import com.tambapps.nlp.scda.augmentation.strategy.SmoothAugmentationStrategy;
 import com.tambapps.nlp.scda.augmentation.strategy.SwapAugmentationStrategy;
@@ -22,6 +23,8 @@ import org.slf4j.LoggerFactory;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Main {
@@ -66,12 +69,18 @@ public class Main {
   private static AugmentationModifier getAugmentationModifier(Arguments arguments,
                                                               UnigramDistribution unigramDistribution) {
     double gamma = arguments.getGamma();
-    List<AugmentationStrategy> strategies =
-      List.of(new SwapAugmentationStrategy(arguments.getK()),
-        new DropoutAugmentationStrategyStrategy(gamma),
-        new PlaceholderAugmentationStrategyStrategy(gamma),
-        new SmoothAugmentationStrategy(gamma, unigramDistribution));
-    return new AugmentationModifier(strategies, arguments.getDuplications());
+    List<AugmentationStrategy> strategies = new ArrayList<>();
+    int duplication = arguments.getDuplication();
+    if (duplication > 0) {
+      strategies.add(new DuplicationAugmentationStrategy(duplication));
+    }
+    strategies.addAll(Arrays.asList(
+      new SwapAugmentationStrategy(arguments.getK()),
+      new DropoutAugmentationStrategyStrategy(gamma),
+      new PlaceholderAugmentationStrategyStrategy(gamma),
+      new SmoothAugmentationStrategy(gamma, unigramDistribution)
+    ));
+    return new AugmentationModifier(strategies);
   }
 
   private static UnigramDistribution getUnigramDistribution(File dictionaryFile, File distributionFile) throws IOException, ParameterException {

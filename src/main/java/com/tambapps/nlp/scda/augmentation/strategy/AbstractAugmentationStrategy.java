@@ -24,10 +24,4 @@ public abstract class AbstractAugmentationStrategy implements AugmentationStrate
     return addedEntries;
   }
 
-  @Override
-  public String getName() {
-    String name = getClass().getSimpleName();
-    return name.substring(0, name.indexOf('A', 1));
-  }
-
 }
