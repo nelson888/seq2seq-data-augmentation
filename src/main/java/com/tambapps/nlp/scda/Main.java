@@ -9,6 +9,8 @@ import com.tambapps.nlp.scda.augmentation.strategy.SmoothAugmentationStrategy;
 import com.tambapps.nlp.scda.augmentation.strategy.SwapAugmentationStrategy;
 import com.tambapps.nlp.scda.dataset.IODataset;
 import com.tambapps.nlp.scda.dictionary.UnigramDistribution;
+import com.tambapps.nlp.scda.exception.DatasetException;
+import com.tambapps.nlp.scda.exception.DistributionException;
 import com.tambapps.utils.ioutils.IOUtils;
 
 import com.beust.jcommander.JCommander;
@@ -51,8 +53,13 @@ public class Main {
     LOGGER.info("Starting processing dataset");
     try (IODataset dataset = new IODataset(arguments.getSourceFile(), arguments.getTargetFile())) {
       modifier.augmentDataset(dataset);
+    } catch (DistributionException e) {
+      LOGGER.error("Error while performing Smooth: {}", e.getMessage());
+      LOGGER.error("Exiting program");
+    } catch (DatasetException e) {
+      LOGGER.error("Error while manipulating dataset the dataset", e);
     } catch (IOException e) {
-      LOGGER.error("Error while manipulating the dataset", e);
+      LOGGER.error("Error while reading/writing the dataset", e);
     }
   }
 

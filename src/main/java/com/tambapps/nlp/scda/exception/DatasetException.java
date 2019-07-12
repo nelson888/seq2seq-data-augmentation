@@ -4,4 +4,8 @@ public class DatasetException extends RuntimeException {
   public DatasetException(String message, Throwable t) {
     super(message, t);
   }
+
+  public DatasetException(String message) {
+    super(message);
+  }
 }

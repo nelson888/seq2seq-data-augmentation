@@ -24,6 +24,7 @@ public class IODataset implements Iterator<IODataset.Entry>, Iterable<IODataset.
   private static final Logger LOGGER = LoggerFactory.getLogger(IODataset.class);
   private static final String OUTPUT_FILE_SUFFIX = ".augmented";
 
+  private final long nbEntries;
   private final BufferedReader sourceReader;
   private final BufferedReader targetReader;
   private final BufferedWriter sourceWriter;
@@ -34,6 +35,10 @@ public class IODataset implements Iterator<IODataset.Entry>, Iterable<IODataset.
   public IODataset(File sourceFile, File targetFile) throws IOException {
     File outputSourceFile = new File(sourceFile.getParent(), sourceFile.getName() + OUTPUT_FILE_SUFFIX);
     File outputTargetFile = new File(targetFile.getParent(), targetFile.getName() + OUTPUT_FILE_SUFFIX);
+    nbEntries = IOUtils.nbLines(sourceFile);
+    if (IOUtils.nbLines(targetFile) != nbEntries) {
+      throw new DatasetException("The number of entries in the input file and target file is different");
+    }
     this.sourceReader = IOUtils.newReader(sourceFile);
     this.targetReader = IOUtils.newReader(targetFile);
     this.sourceWriter = IOUtils.newWriter(outputSourceFile);
@@ -73,6 +78,10 @@ public class IODataset implements Iterator<IODataset.Entry>, Iterable<IODataset.
     for (Closeable c : List.of(sourceReader, targetReader, sourceWriter, targetWriter)) {
       c.close();
     }
+  }
+
+  public long getNbEntries() {
+    return nbEntries;
   }
 
   @AllArgsConstructor
