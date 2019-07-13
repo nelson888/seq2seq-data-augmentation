@@ -13,6 +13,9 @@ Each of theses strategies are used to add new entries in the dataset. For all me
 (except Swap), we go through each words and there is a probability of `γ` (gamma) that 
 the word is modified. Default value is 0.15
 
+### Duplication
+Duplicate original entries (useful to increase weight of original entries) n time.
+
 ### Swap
 Swap words in the entry in a window of size k.
 
