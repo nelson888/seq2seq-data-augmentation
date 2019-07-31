@@ -4,6 +4,7 @@ import com.beust.jcommander.validators.PositiveInteger;
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.Parameters;
 import com.beust.jcommander.converters.FileConverter;
+import com.tambapps.nlp.scda.args.validator.ProbabilityValidator;
 import lombok.Getter;
 
 import java.io.File;
@@ -27,10 +28,12 @@ public class Arguments {
   converter = FileConverter.class)
   private File distributionFile;
 
-  @Parameter(names = {"-g", "--gamma"}, description = "gamma, the probability to replace words")
+  @Parameter(names = {"-g", "--gamma"}, validateWith = ProbabilityValidator.class,
+    description = "gamma, the probability to replace words")
   private double gamma = 0.15d;
 
-  @Parameter(names = {"-w", "--window-size"}, description = "k, the window size to swap words")
+  @Parameter(names = {"-w", "--window-size"}, validateWith = PositiveInteger.class,
+    description = "k, the window size to swap words")
   private int k = 3;
 
   @Parameter(names = {"-l", "--log-errors"}, description = "Log the errors if any when augmenting dataset")
