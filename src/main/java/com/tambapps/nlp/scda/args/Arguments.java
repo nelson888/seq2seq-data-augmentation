@@ -28,7 +28,7 @@ public class Arguments {
   private File distributionFile;
 
   @Parameter(names = {"-g", "--gamma"}, description = "gamma, the probability to replace words")
-  private double gamma = 0.16d;
+  private double gamma = 0.15d;
 
   @Parameter(names = {"-w", "--window-size"}, description = "k, the window size to swap words")
   private int k = 3;
