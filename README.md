@@ -26,10 +26,11 @@ Randomly drop words in the entry.
 Randomly replace words with a `_` placeholder.
 
 ### Smooth
-Randomly replace words with words having a similar frequency in the given dataset (use of an Unigram Diagram)
+Randomly replace words with words having a similar frequency in the given dataset (use of an Unigram Diagram).
+This strategy can raise an exception if a word hasn't been found on the unigram distribution.
 
 
-There is also a/some duplication of the original entry (unmodiffied) in order for it to have
+There is also a/some duplication of the original entry (unmodified) in order for it to have
 more weight.
 
 ## How to Use

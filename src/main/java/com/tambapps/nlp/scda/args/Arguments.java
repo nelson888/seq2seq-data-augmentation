@@ -33,6 +33,9 @@ public class Arguments {
   @Parameter(names = {"-w", "--window-size"}, description = "k, the window size to swap words")
   private int k = 3;
 
+  @Parameter(names = {"-l", "--log-errors"}, description = "Log the errors if any when augmenting dataset")
+  private boolean logErrors = false;
+
   @Parameter(validateWith = PositiveInteger.class, names = {"-d", "--duplication" },
     description = "The number of duplication of each original entry. The original entry is always wrote once. " +
       "This option allows to write it more than once (useful to add more weight on original entries of the dataset). " +

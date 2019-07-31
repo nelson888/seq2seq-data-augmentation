@@ -11,7 +11,7 @@ public final class StringUtils {
   private StringUtils() {}
 
   public static String trimPunctuation(String word) {
-    return word.trim().replaceAll(PUNCTUATION_PATTERN, EMPTY_STRING);
+    return word.trim().replaceAll(PUNCTUATION_PATTERN, EMPTY_STRING).trim();
   }
 
   public static boolean isPunctuation(String word) {

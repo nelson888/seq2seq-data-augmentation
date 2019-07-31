@@ -3,6 +3,8 @@ package com.tambapps.nlp.scda.augmentation.strategy;
 
 import com.tambapps.nlp.scda.dictionary.StringUtils;
 import com.tambapps.nlp.scda.dictionary.UnigramDistribution;
+import com.tambapps.nlp.scda.exception.AugmentationException;
+import com.tambapps.nlp.scda.exception.DistributionException;
 
 import java.util.List;
 import java.util.Random;
@@ -21,11 +23,16 @@ public class SmoothAugmentationStrategy extends ReplacementAugmentationStrategy 
   }
 
   @Override
-  String replaceWord(String word) {
+  String replaceWord(String word) throws AugmentationException {
     if (StringUtils.isPunctuation(word)) {
       return word;
     }
-    double prob = unigramDistribution.getProbability(word);
+    double prob;
+    try {
+      prob = unigramDistribution.getProbability(word);
+    } catch (DistributionException e) {
+      throw new AugmentationException(e.getMessage(), e);
+    }
     List<String> replacements = unigramDistribution.getWordsWithProb(prob);
     if (replacements.size() == 1) { // meaning that the input word is the only one for this probability
       replacements = findClosestReplacements(prob);

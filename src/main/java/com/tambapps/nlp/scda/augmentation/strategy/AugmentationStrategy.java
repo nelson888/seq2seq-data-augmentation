@@ -1,6 +1,7 @@
 package com.tambapps.nlp.scda.augmentation.strategy;
 
 import com.tambapps.nlp.scda.dataset.IODataset;
+import com.tambapps.nlp.scda.exception.AugmentationException;
 
 import java.io.IOException;
 
@@ -14,7 +15,7 @@ public interface AugmentationStrategy {
    * @param entry the entry to apply the strategy to
    * @throws IOException in case of error while reading/writing the entry
    */
-  void apply(IODataset.Entry entry) throws IOException;
+  void apply(IODataset.Entry entry) throws IOException, AugmentationException;
 
   /**
    * The number of entries added by this strategy

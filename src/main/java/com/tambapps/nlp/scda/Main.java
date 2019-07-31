@@ -56,9 +56,6 @@ public class Main {
     LOGGER.info("Starting processing dataset");
     try (IODataset dataset = new IODataset(arguments.getSourceFile(), arguments.getTargetFile())) {
       modifier.augmentDataset(dataset);
-    } catch (DistributionException e) {
-      LOGGER.error("Error while performing Smooth: {}", e.getMessage());
-      LOGGER.error("Exiting program");
     } catch (DatasetException e) {
       LOGGER.error("Error while manipulating dataset the dataset", e);
     } catch (IOException e) {
@@ -80,7 +77,7 @@ public class Main {
       new PlaceholderAugmentationStrategyStrategy(gamma),
       new SmoothAugmentationStrategy(gamma, unigramDistribution)
     ));
-    return new AugmentationModifier(strategies);
+    return new AugmentationModifier(strategies, arguments.isLogErrors());
   }
 
   private static UnigramDistribution getUnigramDistribution(File dictionaryFile, File distributionFile) throws IOException, ParameterException {
