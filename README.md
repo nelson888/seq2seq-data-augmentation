@@ -34,6 +34,20 @@ There is also a/some duplication of the original entry (unmodified) in order for
 more weight.
 
 ## How to Use
+Here is the list of the parameters of this program
 
-compile the program with maven and launch it with the `--help` options to 
-have more information
+### Required parameters
+- `--source-file`: the training set in source language
+- `--target-file`: the training set in target language
+You must provide on of the two following arguments
+- `--dictionary-file`: The dictionary file of the source language. The dictionary file should
+contain in each line one word followed by the number of its occurrence in the dataset
+- `--distribution-file`: The distribution file of the source language.
+The distribution file should contain in each line a word and its distribution (0 < distribution <= 1)
+
+### Optional parameters
+- `-g`, `--gamma`: The probability of which to replace a word by an Augmentation Strategy (default: `0.15`)
+- `-w`, `--window-size`: The window size to swap words (for the Swap strategy) (default: `3`)
+- `-l`, `--log-errors`: whether to log errors or not. Errors can happen on the Smooth strategy, 
+if a word is not found on the unigram distribution (default: `false`)
+- `-d`, `--duplication`: The number of duplication to write (default: `0`)
