@@ -1,8 +1,8 @@
 # Soft Contextual Data Augmentation
 
-This is my implementation/interpretation of the SCDA, explained in [this paper](https://arxiv.org/pdf/1905.10523.pdf).
+This is my implementation/interpretation of 4 (of the 5) ways to augment data explained in [this paper](https://arxiv.org/pdf/1905.10523.pdf).
 
-This method can be used to augment NLP dataset (text datasets), when you can't find a lot of real data.
+This method can be used to augment dataset for translation, summarization, and other text generation tasks, when you can't find a lot of real data.
 
 
 ## Augmentation Strategies
