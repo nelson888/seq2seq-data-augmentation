@@ -64,7 +64,8 @@ public class AugmentationModifier {
     long totalAddedEntries = 0;
     for (AugmentationStrategy strategy : augmentationStrategies) {
       totalAddedEntries += strategy.getAddedEntries();
-      LOGGER.info("{} entries was added with the {} strategy", DECIMAL_FORMAT.format(strategy.getAddedEntries()), strategy.getName());
+      LOGGER.info("{} entries was added with the {} strategy",
+          DECIMAL_FORMAT.format(strategy.getAddedEntries()), strategy.getName());
     }
     long totalSize = nbEntries + totalAddedEntries;
     LOGGER.info("New size: {} ({} new entries added)", DECIMAL_FORMAT.format(totalSize),

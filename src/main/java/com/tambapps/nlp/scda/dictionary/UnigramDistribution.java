@@ -5,7 +5,6 @@ import com.tambapps.nlp.scda.exception.DistributionException;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -41,14 +40,16 @@ public class UnigramDistribution {
 
   private static Map<String, Double> loadDistributionMap(BufferedReader reader) throws IOException {
     final Map<String, Double> distribution = new HashMap<>();
-    String line;
-    while ((line = reader.readLine()) != null) {
-      String[] splitLine = line.split("\\s+");
-      String word = StringUtils.trimPunctuation(splitLine[0]);
-      double occurrence = Double.parseDouble(splitLine[1]);
-      distribution.put(word, occurrence);
-    }
+    reader.lines()
+        .forEach(l -> processDistributionLine(l, distribution));
     return distribution;
+  }
+
+  private static void processDistributionLine(String line, Map<String, Double> distribution) {
+    String[] splitLine = line.split("\\s+");
+    String word = StringUtils.trimPunctuation(splitLine[0]);
+    double occurrence = Double.parseDouble(splitLine[1]);
+    distribution.put(word, occurrence);
   }
 
   private static UnigramDistribution createUnigramDistribution(Map<String, Double> distribution) {
@@ -64,9 +65,9 @@ public class UnigramDistribution {
       .sorted()
       .collect(Collectors.toList());
 
-    return new UnigramDistribution(Collections.unmodifiableMap(distribution),
-      Collections.unmodifiableMap(reversedDistribution),
-      Collections.unmodifiableList(probabilities));
+    return new UnigramDistribution(Map.copyOf(distribution),
+        Map.copyOf(reversedDistribution),
+        List.copyOf(probabilities));
   }
 
   public static UnigramDistribution loadDictionary(BufferedReader dictionaryReader) throws IOException {

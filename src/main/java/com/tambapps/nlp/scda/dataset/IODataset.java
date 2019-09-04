@@ -12,8 +12,8 @@ import java.io.BufferedWriter;
 import java.io.Closeable;
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.Iterator;
+import java.util.List;
 
 /**
  * A dataset is two files:
@@ -75,7 +75,7 @@ public class IODataset implements Iterator<IODataset.Entry>, Iterable<IODataset.
 
   @Override
   public void close() throws IOException {
-    for (Closeable c : Arrays.asList(sourceReader, targetReader, sourceWriter, targetWriter)) {
+    for (Closeable c : List.of(sourceReader, targetReader, sourceWriter, targetWriter)) {
       c.close();
     }
   }
@@ -87,8 +87,8 @@ public class IODataset implements Iterator<IODataset.Entry>, Iterable<IODataset.
   @AllArgsConstructor
   @Getter
   public class Entry {
-    private String sourceText;
-    private String targetText;
+    private final String sourceText;
+    private final String targetText;
 
     public void write() throws IOException {
       IODataset.this.write(sourceText, targetText);
