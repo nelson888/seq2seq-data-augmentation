@@ -9,10 +9,10 @@ public class ProbabilityValidator implements IParameterValidator {
     try {
       double d = Double.parseDouble(value);
       if (d < 0 || d > 1) {
-        throw new NumberFormatException();
+        throw new ParameterException(String.format("%s is not a probability", value));
       }
     } catch (NumberFormatException e) {
-      throw new ParameterException(String.format("%s is not a probability", value));
+      throw new ParameterException(String.format("%s is not a number", value));
     }
   }
 }
